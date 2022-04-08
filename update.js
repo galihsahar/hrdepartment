@@ -1,0 +1,46 @@
+function updateData() {
+  var xhr = new XMLHttpRequest();
+  var url = "http://localhost:9091/departments/update";
+  var data = JSON.stringify({
+    departmentId: new URL(window.location).searchParams.get("id"),
+    departmentName: document.getElementById("departmentName").value,
+    managerId: document.getElementById("managerId").value,
+    locationId: document.getElementById("locationId").value,
+  });
+  xhr.open("PUT", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhr.onload = function () {
+    console.log(this.responseText);
+  };
+  xhr.onloadend = function () {
+    var statusData = JSON.parse(this.responseText).status;
+    console.log(statusData);
+    if (statusData == true) {
+      alert("Sukses");
+      window.location = "index.html";
+    } else {
+      alert("Error");
+    }
+  };
+  xhr.send(data);
+  return false;
+}
+
+function findOptionLocation() {
+  var xhr = new XMLHttpRequest();
+  var url = "http://localhost:9091/locations/findAll";
+  xhr.onloadend = function () {
+    if (this.responseText !== "") {
+      var result = JSON.parse(this.responseText);
+      var data = result.data;
+      console.log(data);
+      data.forEach((element) => {
+        document
+          .getElementById("locationId")
+          .options.add(new Option(element.city, element.locationId, false));
+      });
+    }
+  };
+  xhr.open("GET", url, true);
+  xhr.send();
+}
