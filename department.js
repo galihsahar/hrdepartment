@@ -1,3 +1,4 @@
+//Get all of department data
 function loadContent() {
   clearResult();
   var xhr = new XMLHttpRequest();
@@ -39,10 +40,12 @@ function loadContent() {
   xhr.send();
 }
 
+//Clear table
 function clearResult() {
   document.getElementById("hasil-department").innerHTML = "";
 }
 
+//Delete department with id as parameter
 function deleteById(i) {
   Swal.fire({
     title: 'Are you sure?',
@@ -77,8 +80,8 @@ function deleteById(i) {
     }
   });
 }
-
-function searchDepartmentByFirstName(name) {
+//Function for searching with department name
+function searchDepartmentByName(name) {
   var xhr = new XMLHttpRequest();
   var url = `http://localhost:9091/departments/findByDepartmentName?departmentName=${[name]}&page=0&size=10`;
   xhr.open("GET", url, true);
@@ -113,7 +116,7 @@ function searchDepartmentByFirstName(name) {
   xhr.open("GET", url, true);
   xhr.send();
 }
-
+//Function for posting data to database with 3 parameter including department name, manager id and location id
 function sendData() {
   var xhr = new XMLHttpRequest();
   var url = "http://localhost:9091/departments/posts";

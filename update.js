@@ -1,3 +1,5 @@
+// In this file I make two function, one for updateData and second for loop to get city with location id
+//1st
 function updateData() {
   Swal.fire({
     title: 'Are you sure?',
@@ -45,7 +47,7 @@ function updateData() {
   });
   return false;
 }
-
+//2nd
 function findOptionLocation() {
   var xhr = new XMLHttpRequest();
   var url = "http://localhost:9091/locations/findAll";
