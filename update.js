@@ -16,10 +16,14 @@ function updateData() {
     var statusData = JSON.parse(this.responseText).status;
     console.log(statusData);
     if (statusData == true) {
-      alert("Sukses");
-      window.location = "index.html";
+      Swal.fire({
+        title: 'Insert Data Success',
+        confirmButtonText: 'Save',
+      }).then(function () {
+        window.location = "index.html";
+      });
     } else {
-      alert("Error");
+      Swal.fire(this.response.massage);
     }
   };
   xhr.send(data);

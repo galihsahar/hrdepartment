@@ -63,11 +63,11 @@ function searchDepartmentByFirstName(name) {
       var result = JSON.parse(this.responseText);
       var data = result.data;
       document.getElementById("hasil-department").innerHTML = `<thead><tr>
-                    <th class="table-info text-center"">Department Id</th>
-                    <th class="table-info text-center"">Department Name</th>
-                    <th class="table-info text-center"">Location Id</th>
-                    <th class="table-info text-center"">Delete</th>
-                    <th class="table-info text-center"">Edit</th></tr></thead>`;
+                    <th class="table-danger text-center"">Department Id</th>
+                    <th class="table-danger text-center"">Department Name</th>
+                    <th class="table-danger text-center"">Location Id</th>
+                    <th class="table-danger text-center"">Delete</th>
+                    <th class="table-danger text-center"">Edit</th></tr></thead>`;
       for (let i = 0; i < data.length; i++) {
         const element = data[i];
         document.getElementById(
@@ -75,8 +75,8 @@ function searchDepartmentByFirstName(name) {
         ).innerHTML += `<tr><td class="table-secondary text-center"">${element.departmentId}</td>
                             <td class="table-secondary text-center"">${element.departmentName}</td>
                             <td class ="table-secondary text-center"">${element.locationId}</td>
-                            <td class="table-secondary  text-center""><button class="btn btn-dark text-center" type="submit" onclick="deleteById(${data[i].departmentId})"><i class="fa-solid fa-trash-can"></i></button>
-                            <td class="table-secondary text-center""><a class="btn btn-success" type="submit" value="Edit" href="update.html?id=${data[i].departmentId}">Edit</a></td></tr>`;
+                            <td class="table-secondary  text-center""><button class="btn btn-warning text-center" type="submit" onclick="deleteById(${data[i].departmentId})"><i class="fa-solid fa-trash-can"></i></button>
+                            <td class="table-secondary text-center""><a class="btn btn-success" type="submit" href="update.html?id=${data[i].departmentId}"><i class="fa-solid fa-circle-plus fa-3x"></i></a></td></tr>`;
       }
     }
 
@@ -106,10 +106,14 @@ function sendData() {
     var statusData = JSON.parse(this.responseText).status;
     console.log(statusData);
     if (statusData == true) {
-      alert("Sukses");
-      window.location = "index.html";
+      Swal.fire({
+        title: 'Update Data Success',
+        confirmButtonText: 'Save',
+      }).then(function () {
+        window.location = "index.html";
+      });
     } else {
-      alert("Error");
+      Swal.fire(this.response.massage);
     }
   };
   xhr.send(data);
